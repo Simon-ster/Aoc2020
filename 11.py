@@ -38,35 +38,41 @@ def checkSeats2(i,j):
 							occ += 1
 	return occ
 
-cont = True
-val = 0
-while cont:
-	next_layout = []	
-	cont = False
-	#print(row)
-	#print(col)
-	for i in range(row):
-		string = ""
-		for j in range(col):
-			char = lines[i][j]
-			if lines[i][j] == 'L' and checkSeats2(i,j) == 0:
-				char = '#'	
-				cont = True
-			elif lines[i][j] == '#' and checkSeats2(i,j) >= 5:
-				char = 'L'
-				cont = True
-			string += char
-		next_layout.append(string)	
-	#print(lines)
-	#print(next_layout)
-	if cont:
-		lines = [p[:] for p in next_layout]
+seats = 4
+for check in (checkSeats,checkSeats2):
+	cont = True
+	while cont:
+		next_layout = []	
+		cont = False
+		#print(row)
+		#print(col)
+		for i in range(row):
+			string = ""
+			for j in range(col):
+				char = lines[i][j]
+				if lines[i][j] == 'L' and check(i,j) == 0:
+					char = '#'	
+					cont = True
+				elif lines[i][j] == '#' and check(i,j) >= seats:
+					char = 'L'
+					cont = True
+				string += char
+			next_layout.append(string)	
+		#print(lines)
 		#print(next_layout)
+		if cont:
+			lines = [p[:] for p in next_layout]
+			#print(next_layout)
 
-count = 0
-for i in range(row):
-	for j in range(col):
-		if lines[i][j] == '#':
-			count += 1
-#print(lines)
-print(count)
+	count = 0
+	for i in range(row):
+		for j in range(col):
+			if lines[i][j] == '#':
+				count += 1
+	#print(lines)
+	print(count)
+	seats = 5
+	lines = []	
+	f=open("input.txt")
+	for line in f.readlines():
+		lines.append(line.strip())
