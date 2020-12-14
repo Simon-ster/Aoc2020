@@ -5,7 +5,7 @@ for line in f.readlines():
 #lines = [line.rstrip('\n') for line in f]
 col = len(lines[0]) 
 row = len(lines) 
-
+#boo!
 
 def checkSeats(i,j):
 	jj = [1,0,-1]
